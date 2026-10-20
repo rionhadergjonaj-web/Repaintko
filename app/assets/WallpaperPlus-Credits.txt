@@ -1,0 +1,12 @@
+Wallpaper+ – Bildnachweise
+
+80 Landschaften wurden mit dem eingebauten OpenAI Imagegen-Werkzeug für Repaintko erzeugt. Die Szenen sind Illustrationen bzw. fotorealistische KI-Bilder und dokumentieren keine bestimmten realen Orte.
+20 einfarbige Hintergründe wurden für Repaintko erstellt.
+
+Zusätzliches echtes Foto:
+Oeschinen Lake (Oeschinensee) panorama from above 140622 2
+Fotograf: Bob Tan, 14. Juni 2022
+Quelle: https://commons.wikimedia.org/wiki/File:Oeschinen_Lake_(Oeschinensee)_panorama_from_above_140622_2.jpg
+Lizenz: Creative Commons Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 International (CC BY-SA 4.0)
+Lizenztext: https://creativecommons.org/licenses/by-sa/4.0/
+Änderungen: Verwendung der auf 3840 Pixel verkleinerten Fassung, Konvertierung nach WebP, zugeschnittenes und verkleinertes Vorschaubild. Diese Fassungen stehen ebenfalls unter CC BY-SA 4.0. Keine Unterstützung oder Empfehlung von Repaintko durch den Fotografen wird behauptet.

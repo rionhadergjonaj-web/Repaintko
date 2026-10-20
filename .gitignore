@@ -15,3 +15,6 @@ app/draw_vendor/
 app/models/
 app/text_ai_runtime/
 app/video_tools/
+work/
+outputs/
+*.dpapi
