@@ -1,0 +1,12 @@
+{
+  "payload": {
+    "schema": 1,
+    "version": "13.1.0",
+    "issued": 1792562685,
+    "expires": 1800338685,
+    "url": "https://github.com/rionhadergjonaj-web/Repaintko/releases/download/v13.1.0/Repaintko-Setup-13.1.0.msi",
+    "size": 1611702272,
+    "sha256": "df64333994cc3f8f20ed01f7871e610ab737edfb008da755669aeba676dfe615"
+  },
+  "signature": "yVfjw4BMXq5JRVhRLQbnJBT69cQX9UpGGRsNPW053J0o0Puk0yMEdxV2FKOCFuQGTHZkG9jRreJHmXD/Go3/Bw=="
+}

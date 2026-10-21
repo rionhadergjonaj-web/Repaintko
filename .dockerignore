@@ -1,0 +1,14 @@
+.git
+.venv
+.secrets
+**/__pycache__
+**/*.pyc
+**/*.exe
+**/*.msi
+**/*.onnx
+**/*.gguf
+app/tests
+app/assets
+app/draw_vendor
+app/text_ai_runtime
+app/video_tools

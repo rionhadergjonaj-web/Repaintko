@@ -1,0 +1,4 @@
+websockets==17.3
+cryptography==50.0.2
+Pillow>=11
+PySide6>=6.9

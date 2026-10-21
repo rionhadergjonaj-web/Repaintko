@@ -1,0 +1,23 @@
+Repaintko - Nutzungsbedingungen, Version 1
+
+1. Repaintko ist ein lokales Programm zum Zeichnen und Bearbeiten von Bildern.
+   Du entscheidest selbst, welche Bilder du bearbeitest und wo du sie speicherst.
+   Verwende Bilder, die du bearbeiten und weitergeben darfst.
+
+2. Speichere bearbeitbare Ebenen als .repaintko-Projekt. Ein Bildexport wie PNG
+   oder JPEG enthaelt nur das zusammengefuehrte Ergebnis. Bewahre wichtige
+   Originalbilder und Projekte zusaetzlich als Sicherung auf.
+
+3. Repaintko laedt deine Bilder nicht automatisch hoch. Der Installer richtet
+   Programmdateien, Startmenue- und Desktop-Verknuepfungen sowie den Eintrag
+   zur Deinstallation in den Windows-Einstellungen ein.
+
+4. Python, Pillow und Qt/PySide6 werden mitgeliefert. Fuer diese Komponenten
+   gelten ihre eigenen Lizenzbedingungen im Unterordner "licenses".
+
+5. Reparieren stellt Programmdateien und Verknuepfungen wieder her. Die
+   Deinstallation entfernt die vom Installer verwalteten Programmdateien.
+   Speichere eigene Bilder und Projekte ausserhalb des Programmordners.
+
+Mit dem Haken "Ich akzeptiere die Nutzungsbedingungen" bestaetigst du,
+dass du diese Hinweise gelesen hast und akzeptierst.
