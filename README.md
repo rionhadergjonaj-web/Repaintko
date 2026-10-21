@@ -25,3 +25,7 @@ Installer und Modelle niemals in Git speichern. Installationsdateien gehören na
 ## Entwicklungsstand
 
 Das vollständige Setup 13.0.1 ist separat fertiggestellt. Die neue Plattform-Integration ist als 13.1.0 in Entwicklung. Noch keine öffentliche Serverbereitstellung, kein Push und kein Release dieser Integration. Die bisher installierte App bleibt unverändert.
+
+## Node.js-Community
+
+Die Webseite lässt sich jetzt mit Node.js 24 über `npm start` betreiben. Anmeldung, Registrierung und Vorschläge befinden sich unter `/community`. Einzigartige Benutzernamen haben mindestens fünf Zeichen; Rezzko wird sicher über `npm run admin:setup` eingerichtet. Einrichtung, Datenbanksicherung und Hosting: [docs/NODE-WEBSITE.md](docs/NODE-WEBSITE.md). GitHub Pages kann den neuen Server nicht ausführen.
