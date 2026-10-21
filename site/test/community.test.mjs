@@ -32,7 +32,7 @@ test('Konten, Rechte, Vorschläge, Sitzungen und persistente Daten',async()=>{
  assert.equal((await call('/api/suggestions','POST',{title:'Title',body:'x'.repeat(20000)},alice.cookie)).status,413);
  for(const path of ['/data/community.sqlite','/.secrets/update-signing.dpapi','/site/server.mjs']) assert.equal((await fetch(base+path)).status,404);
  assert.match((await fetch(base+'/community')).headers.get('content-security-policy'),/frame-ancestors 'none'/);
- const stored=app.db.prepare('SELECT password FROM users WHERE name_key=?').get('alice01').password;assert.ok(!stored.includes(password));
+ const stored=(await app.db.prepare('SELECT password FROM users WHERE name_key=?').get('alice01')).password;assert.ok(!stored.includes(password));
  await app.close();app=await createApp({database});await new Promise(r=>app.server.listen(0,'127.0.0.1',r));base='http://127.0.0.1:'+app.server.address().port;
  assert.equal((await call('/api/suggestions','GET',null,alice.cookie)).body.suggestions.length,1);
  await call('/api/logout','POST',{},alice.cookie);assert.equal((await call('/api/me','GET',null,alice.cookie)).body.user,null);

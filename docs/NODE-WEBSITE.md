@@ -37,3 +37,16 @@ Erst nach Hosting-/DNS-Freigabe umziehen. Danach alte Pages-Deployments deaktivi
 HTTP-Integrationstests: Registrierung/Anmeldung, Mindestlängen, reservierter Adminname, gleiche Namen in anderer Schreibweise und parallele Registrierung, Rollenmanipulation, Fremd-Origin, Zugriff auf fremde Vorschläge, Admin-Statusänderung, übergroße Eingaben, gesperrte private Dateipfade, persistente Daten/Sitzungen nach Neustart, Logout, Admin-Neuanlage-Sperre, Secure-Cookies und Rate-Limit. Keine produktive Veröffentlichung und kein Container-/Hosting-Test erfolgt.
 
 Node-API-Referenz: https://nodejs.org/download/release/latest-v24.x/docs/api/sqlite.html
+
+## Kostenloser Start: Render Free + Turso Free
+
+Vorbereitet am 21.10.2026. Render Free hat kein dauerhaftes lokales Dateisystem; deshalb verwendet der Dienst dort zwingend eine externe Turso-Datenbank. Er startet auf Render ohne TURSO_DATABASE_URL nicht. Die lokale SQLite-Variante bleibt für Entwicklung erhalten.
+
+1. Kostenlose Konten bei https://dashboard.render.com und https://app.turso.tech selbst anlegen/anmelden. Keine Zahlungsdaten oder kostenpflichtigen Pläne auswählen.
+2. In Turso eine Datenbank im kostenlosen Tarif erstellen. Die Datenbankadresse und ein ausschließlich für diese Datenbank geltendes Zugriffstoken als Render-Secrets hinterlegen: TURSO_DATABASE_URL und TURSO_AUTH_TOKEN. Token nicht in Chat, Git oder Browsercode schreiben.
+3. Render-Web-Service mit diesem Repository/Branch einrichten. Runtime Node, Plan Free, Build `node --check site/server.mjs`, Start `npm start`, Node 24.19.0, HOST=0.0.0.0, NODE_ENV=production. render.yaml enthält die Vorlage; automatische Deployments sind aus.
+4. Zunächst die von Render vergebene HTTPS-Adresse nutzen. RENDER_EXTERNAL_URL wird automatisch als erlaubte Herkunft verwendet. Für repaintko.com nach ausdrücklicher DNS-Freigabe PUBLIC_ORIGIN=https://repaintko.com setzen.
+5. Ein eigenes starkes Adminpasswort vorübergehend als REZZKO_ADMIN_PASSWORD in Render setzen. Beim Start wird Rezzko nur angelegt, falls er noch nicht existiert; kein vorhandenes Passwort wird überschrieben. Nach erfolgreicher Adminanmeldung den Secret-Umgebungswert entfernen.
+6. Registrierung, Adminansicht und erneute Anmeldung nach einem Neustart gegen die echte Cloud-Datenbank testen, bevor die Domain umzieht. Die Cloudverbindung ist bisher nur durch lokale Transporttests geprüft, noch nicht mit einem echten Turso-Konto.
+
+Die Gratisdienste haben Nutzungsgrenzen und können pausieren. Render schläft bei Inaktivität ein; erste Aufrufe können verzögert sein. Keine automatische Tarif-Aufwertung aktivieren. Render-Dokumentation: https://render.com/docs/free ; Turso-Tarife: https://turso.tech/pricing?frequency=monthly .
