@@ -1,2 +1,2 @@
 websockets==17.3
-Pillow==12.1.0
+Pillow==12.3.0

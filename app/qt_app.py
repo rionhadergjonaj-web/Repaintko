@@ -1450,6 +1450,13 @@ def main():
                 sample=parse_schema('CREATE TABLE a(id INTEGER PRIMARY KEY); CREATE TABLE b(id INTEGER PRIMARY KEY, a_id INTEGER REFERENCES a(id));')
                 assert len(sample['edges'])==1
                 connection=sqlite3.connect(':memory:');connection.executescript(export_schema(sample));connection.close()
+                import draw_online, update_core, update_trust
+                assert update_core.version(update_trust.APP_VERSION) == (13,1,0)
+                window.open_draw_together()
+                assert window.draw_together.network_mode.count() == 2
+                window.draw_together.search_timer.stop()
+                window.draw_together.shutdown()
+                app.processEvents()
                 window.grab().save(str(report.with_suffix('.png')))
                 report.write_text(json.dumps({'ok':True,'modes':modes,'size':[window.width(),window.height()],
                                               'frozen':bool(getattr(sys,'frozen',False))},ensure_ascii=False),encoding='utf-8')

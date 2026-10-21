@@ -12,6 +12,7 @@ from browser_store import crypt
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from update_core import canonical, version, verify_manifest
 from update_trust import PUBLIC_KEY
+from update_helper import verify_msi
 
 def main():
     parser = argparse.ArgumentParser()
@@ -23,6 +24,7 @@ def main():
     expected = f'Repaintko-Setup-{args.version}.msi'
     if args.installer.name != expected:
         raise ValueError('MSI-Dateiname muss zur Version passen.')
+    verify_msi(args.installer,args.version)
     digest = hashlib.sha256()
     with args.installer.open('rb') as stream:
         for block in iter(lambda: stream.read(1024*1024), b''):

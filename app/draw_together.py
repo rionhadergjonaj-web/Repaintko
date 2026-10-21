@@ -21,12 +21,12 @@ class DrawTogether(QWidget):
         self.job.connect(self.job_done);self.statusSignal.connect(self.status);self.frameSignal.connect(self.frame);self.usersSignal.connect(self.users);self.errorSignal.connect(self.error)
         layout=QVBoxLayout(self);top=QHBoxLayout();back=QPushButton('← Bild / GIF');back.clicked.connect(self.returnRequested);top.addWidget(back);top.addWidget(QLabel('DrawTogether · gemeinsam zeichnen'));top.addStretch();layout.addLayout(top)
         self.pages=QStackedWidget();layout.addWidget(self.pages,1);lobby=QWidget();self.pages.addWidget(lobby);left=QVBoxLayout(lobby)
-        self.username=QLineEdit(getpass.getuser());self.username.setMaxLength(40);form=QFormLayout();form.addRow('Dein Benutzername',self.username);self.network_mode=QComboBox();self.network_mode.addItems(['LAN / WLAN','Online']);form.addRow('Verbindung',self.network_mode);self.network_mode.currentIndexChanged.connect(self.search);left.addLayout(form)
+        self.username=QLineEdit(getpass.getuser());self.username.setMaxLength(40);form=QFormLayout();form.addRow('Dein Benutzername',self.username);self.network_mode=QComboBox();self.network_mode.addItems(['LAN / WLAN','Online']);form.addRow('Verbindung',self.network_mode);self.network_mode.currentIndexChanged.connect(self.network_changed);left.addLayout(form)
         buttons=QHBoxLayout();self.host_button=QPushButton('Server hosten');self.host_button.clicked.connect(self.host_dialog);self.join_button=QPushButton('Server beitreten');self.join_button.clicked.connect(self.join);self.search_button=QPushButton('Erneut suchen');self.search_button.clicked.connect(self.search)
         for b in (self.host_button,self.join_button,self.search_button):buttons.addWidget(b)
         self.id_button=QPushButton('Über Raum-ID beitreten');self.id_button.clicked.connect(self.join_id);buttons.addWidget(self.id_button);left.addLayout(buttons);self.servers=QListWidget();self.servers.itemDoubleClicked.connect(lambda _:self.join());left.addWidget(self.servers,1)
         self.search_info=QLabel('Server im gleichen LAN/WLAN werden automatisch gesucht.');self.search_info.setWordWrap(True);left.addWidget(self.search_info)
-        tip=QLabel('Beide PCs müssen im gleichen Netzwerk sein. Erlaube Repaintko in der Windows-Firewall für private Netzwerke. Gast-WLANs können Verbindungen zwischen Geräten sperren.');tip.setWordWrap(True);left.addWidget(tip)
+        self.tip=QLabel('Beide PCs müssen im gleichen Netzwerk sein. Erlaube Repaintko in der Windows-Firewall für private Netzwerke. Gast-WLANs können Verbindungen zwischen Geräten sperren.');self.tip.setWordWrap(True);left.addWidget(self.tip)
         session=QWidget();self.pages.addWidget(session);body=QVBoxLayout(session);header=QHBoxLayout();self.status_label=QLabel('Verbinde …');self.status_label.setWordWrap(True);header.addWidget(self.status_label,1);self.save_button=QPushButton('Zeichnung speichern …');self.save_button.clicked.connect(self.save);header.addWidget(self.save_button);self.leave_button=QPushButton('Sitzung verlassen');self.leave_button.clicked.connect(self.leave);header.addWidget(self.leave_button);body.addLayout(header)
         from draw_editor import SharedPaintEditor
         self.editor=SharedPaintEditor(self);body.addWidget(self.editor,1)
@@ -50,11 +50,19 @@ class DrawTogether(QWidget):
                     from draw_online import list_rooms
                     result=list_rooms()
                 else:result=discover_servers(targets)
-                self.job.emit('servers',result)
+                self.job.emit('found',(online,result))
             except Exception as exc:self.job.emit('search_error',str(exc))
         threading.Thread(target=work,daemon=True).start()
+    def network_changed(self):
+        self.servers.clear()
+        self.tip.setText('Online-Räume verbinden Teilnehmer über den zentralen Server. Private Räume werden über die Raum-ID betreten.' if self.network_mode.currentIndex()==1 else 'LAN: Beide PCs müssen im gleichen Netzwerk sein. Gast-WLANs können Geräte voneinander trennen.')
+        self.search()
     def job_done(self,kind,result):
-        if kind=='network':
+        if kind=='found':
+            mode,rooms=result
+            if mode==(self.network_mode.currentIndex()==1):self.job_done('servers',rooms)
+            else:self.searching=False;self.search()
+        elif kind=='network':
             generation,fn,args=result
             if generation==self.generation:fn(*args)
         elif kind=='servers':

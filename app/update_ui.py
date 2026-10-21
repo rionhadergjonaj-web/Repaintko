@@ -53,6 +53,9 @@ class Updater(QObject):
         self.folder = Path(folder)
         self.label.setText("Geprüftes Update bereit")
         self.button.show()
+        # Normal close handling asks about unsaved work and active sessions.
+        # Cancelling keeps the verified update available via the button.
+        QTimer.singleShot(1000, self.prepare_install)
 
     def prepare_install(self):
         helper = Path(__file__).resolve().parent / "RepaintkoUpdater.exe"

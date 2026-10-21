@@ -152,6 +152,31 @@ class OnlineIntegration(unittest.TestCase):
                 async def stop():tlsserver.close();await tlsserver.wait_closed()
                 asyncio.run_coroutine_threadsafe(stop(),self.loop).result(5)
 
+    def test_pixel_transactions_undo_and_room_capacity(self):
+        from draw_edits import clone, prepare, compress, inverse
+        initial=SharedDrawing(size=(32,32));initial.apply(initial.normalize(dict(kind='add',name='Second')))
+        a=self.socket();owner=uuid.uuid4().hex
+        self.send(a,type='create',identity=owner,secret=uuid.uuid4().hex*2,username='A',password='',name='Pixels',maximum=2,state=initial.export())
+        room=self.receive(a,'snapshot')['room']['id']
+        b=self.socket()
+        self.send(b,type='join',identity=uuid.uuid4().hex,secret=uuid.uuid4().hex*2,username='B',password='',room=room)
+        self.receive(b,'snapshot')
+        extra=self.socket();self.send(extra,type='join',identity=uuid.uuid4().hex,secret=uuid.uuid4().hex*2,username='C',password='',room=room)
+        self.assertIn('voll',self.receive(extra,'denied')['message'])
+        operations=[]
+        for index,ws,color in [(0,a,'red'),(1,b,'blue')]:
+            before=clone(initial.doc);after=clone(initial.doc)
+            after.layers[index]['image'].paste(color,(2,2,8,8))
+            operation=compress(prepare(before,after)[0]);operations.append(operation)
+            self.send(ws,type='op',seq=1,op=operation)
+        for ws in (a,b):self.receive(ws,'op');self.receive(ws,'op')
+        self.send(a,type='op',seq=2,op=dict(kind='batch',ops=[inverse(operations[0])]))
+        self.receive(a,'op');self.receive(b,'op')
+        state=self.service.registry.rooms[room].state
+        self.assertEqual(state.doc.layers[0]['image'].getpixel((3,3))[3],0)
+        self.assertEqual(state.doc.layers[1]['image'].getpixel((3,3)),(0,0,255,255))
+        self.send(a,type='close');self.receive(a,'ended')
+
 
 if __name__ == "__main__":
     unittest.main()

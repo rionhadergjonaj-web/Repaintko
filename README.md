@@ -12,7 +12,7 @@ Windows-Kreativstudio und statische Download-Webseite.
 
 Python 3.14 verwenden. `python -m venv .venv`, dann Abhängigkeiten in dieser Umgebung installieren. `requirements-platform.txt` enthält die neuen Plattform-Abhängigkeiten. Für die vollständige Desktop-App werden zusätzlich ihre vorhandenen SQL-, PDF-, Video- und KI-Abhängigkeiten benötigt; große Modelle und Laufzeitdateien werden separat bereitgestellt und nicht eingecheckt.
 
-Web-Vorschau: `python -m http.server 8877 --bind 127.0.0.1` im Repository-Stamm.
+Web-Vorschau: nur index.html und web/ in ein separates Vorschauverzeichnis kopieren und dort `python -m http.server 8877 --bind 127.0.0.1` starten. Den Repository-Stamm mit privaten Entwicklungsdateien nicht als öffentliche Website bereitstellen.
 Backend lokal: `python -m server.main`. Der Standard bindet nur an Loopback. Öffentliche Bereitstellung erfordert einen TLS-Reverse-Proxy, siehe `docs/DEPLOYMENT.md`.
 Tests: im Verzeichnis `app` mit `python -m unittest discover -s tests`. Unter eingeschränkten Windows-Umgebungen TEMP und TMP auf einen beschreibbaren Testordner setzen.
 
