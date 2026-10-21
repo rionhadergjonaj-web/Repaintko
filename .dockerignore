@@ -12,3 +12,6 @@ app/assets
 app/draw_vendor
 app/text_ai_runtime
 app/video_tools
+data/
+node_modules/
+.env.*

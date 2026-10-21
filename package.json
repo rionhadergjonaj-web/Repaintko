@@ -1,0 +1,1 @@
+{"name":"repaintko-web","version":"1.0.0","private":true,"type":"module","engines":{"node":">=24.15.0 <25"},"scripts":{"start":"node site/server.mjs","test":"node --test site/test/*.test.mjs","admin:setup":"node site/admin.mjs"}}
