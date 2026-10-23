@@ -1,0 +1,11 @@
+{
+  "index.html": "145a3f7fe3751ee27e789de297808a8c4905100327fac53354f514986915ef4b",
+  "version.json": "4dd293e4dd05c4a81ef48465d9b0c343ef5ac042d541460e1214ac4a6faec3e6",
+  "web/style.css": "7b2dd31e8ab5853dae09149a4eb214158b948dddabb4c2cf00d3273e69a9b4f9",
+  "web/releases.js": "06e961603cd84a7e8cde3407b01bbeafab0bfd4510e6b7e2ad040100f49ff0c1",
+  "web/favicon.svg": "049dc76e784b9d5ded5cc229e7d00fa07fbac105b79852e2aadbc74219f1db3f",
+  "web/community.html": "02119f07ca97ea51ee364ce8f6bd80fa6ee549300baf1f299b32257c287abacc",
+  "web/community.css": "4f69d83bb5068918ed5c071f99b55d997fa4fc3cc06a553dd33a6ec52713067e",
+  "web/community.js": "3859a08e8a904c915ea6daf44a6cd695711a6b2a12aa586f0a0c86cfdc961b7c",
+  ".github/workflows/pages.yml": "b861fbfee69778350099067fa2ea77b96cd23869eb6cde9fced7f7ab1d395d46"
+}
